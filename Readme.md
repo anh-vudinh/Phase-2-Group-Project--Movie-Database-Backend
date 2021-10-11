@@ -1,0 +1,1 @@
+Barebones framework for ruby using ActiveRecords with Sinatra for backend
