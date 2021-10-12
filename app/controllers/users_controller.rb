@@ -20,7 +20,7 @@ class UsersController < ApplicationController
                     possibleToken.session_token.to_json                    #so return token to front end
                 else
                     newToken = createNewSessionToken                       #user does not have usable token, create new token
-                    UserSessionTokenList.create( user_id: searchUser.id, session_token: newToken, session_duration: 86400, exp_start: DateTime.now, exp_end:DateTime.now+86400)
+                    UserSessionTokenList.create( user_id: searchUser.id, session_token: newToken, session_duration: 1, exp_start: DateTime.now, exp_end:DateTime.now+1)
                     newToken.to_json                                       #return to front end
                 end 
             else
