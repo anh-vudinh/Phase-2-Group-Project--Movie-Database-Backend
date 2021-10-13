@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_11_222815) do
+ActiveRecord::Schema.define(version: 2021_10_13_041111) do
 
   create_table "user_session_token_lists", force: :cascade do |t|
     t.string "session_token"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2021_10_11_222815) do
     t.integer "movie_id"
     t.string "movie_name"
     t.string "movie_year"
-    t.string "movie_rating"
+    t.float "movie_rating"
     t.string "movie_backdrop"
   end
 
