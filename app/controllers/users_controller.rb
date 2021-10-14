@@ -56,12 +56,48 @@ class UsersController < ApplicationController
         watchlist_card.to_json
     end
 
+    post '/users/addReview' do
+        user = UserSessionTokenList.all.find_by(session_token: params[:token]).user     #locate user based off token recieved, return hash for id association
+        movie = createMovieIfNone(params[:movie_id])                                    #create or find movie, return hash for id association
+        newReview = Review.create(review_comment: params[:review_comment], review_created: DateTime.now)
+        UserReview.create(user_id: user, review_id: newReview)
+        ReviewMovie.create(review_id: newReview, movie_id: movie)
+        newReview.to_json
+    end
+
+    post '/users/addResponse' do
+        reviewID = createReviewMovieIfNone(params[:review_id], params[:movie_id])   #some reviews are from TMDB which we will leave as ghost reviews that cannot be in our database, so we create the associations only. otherwise we will have duplicate reviews
+        newResponse = Response.create(response_comment: params[:response_comment], response_created: DateTime.now)
+        ReviewResponse.create(response_id: newResponse, review_id: reviewID)
+        newResponse.to_json
+    end
+
     def createNewSessionToken
         possibleToken = Faker::Alphanumeric.alphanumeric(number: 20, min_alpha: 3)
-        if UserSessionTokenList.find_by(session_token: possibleToken) === nil
+        if UserSessionTokenList.find_by(session_token: possibleToken) == nil
             possibleToken
         else
             createNewSessionToken
         end
     end
+
+    def createMovieIfNone(params_id)
+        possibleMovie = Movie.all.find_by(movie_id: params_id)
+        if possibleMovie == nil
+            possibleMovie
+        else
+            Movie.create(movie_id: params_id)
+        end
+    end
+
+    def createReviewMovieIfNone(params_id, params_m_id)
+        possibleReview = Review.all.find_by(id: params_id)
+        if possibleReview == nil
+            newReviewMovie = ReviewMovie.create(movie_id: params_m_id, review_id: params_id)
+            newReviewMovie.id
+        else
+            possibleReview.id
+        end
+    end
+
 end
