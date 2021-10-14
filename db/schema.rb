@@ -10,7 +10,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_13_041111) do
+ActiveRecord::Schema.define(version: 2021_10_14_074042) do
+
+  create_table "movies", force: :cascade do |t|
+    t.integer "movie_id"
+  end
+
+  create_table "responses", force: :cascade do |t|
+    t.string "response_comment"
+    t.datetime "response_created"
+  end
+
+  create_table "review_movies", force: :cascade do |t|
+    t.integer "movie_id"
+    t.integer "review_id"
+    t.index ["movie_id"], name: "index_review_movies_on_movie_id"
+    t.index ["review_id"], name: "index_review_movies_on_review_id"
+  end
+
+  create_table "review_responses", force: :cascade do |t|
+    t.integer "response_id"
+    t.integer "review_id"
+    t.index ["response_id"], name: "index_review_responses_on_response_id"
+    t.index ["review_id"], name: "index_review_responses_on_review_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.string "review_comment"
+    t.datetime "review_created"
+  end
+
+  create_table "user_responses", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "response_id"
+    t.index ["response_id"], name: "index_user_responses_on_response_id"
+    t.index ["user_id"], name: "index_user_responses_on_user_id"
+  end
+
+  create_table "user_reviews", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "review_id"
+    t.index ["review_id"], name: "index_user_reviews_on_review_id"
+    t.index ["user_id"], name: "index_user_reviews_on_user_id"
+  end
 
   create_table "user_session_token_lists", force: :cascade do |t|
     t.string "session_token"
@@ -28,6 +70,7 @@ ActiveRecord::Schema.define(version: 2021_10_13_041111) do
     t.datetime "join_date"
     t.boolean "login_status"
     t.boolean "account_active"
+    t.string "userprofile"
   end
 
   create_table "watchlist_cards", force: :cascade do |t|
