@@ -13,4 +13,8 @@ use Rack::JSONBodyParser
 
 # Our application
 run ApplicationController
+use ResponsesController
+use ReviewsController
 use UsersController
+use WatchlistsController
+use WatchlistCardsController
