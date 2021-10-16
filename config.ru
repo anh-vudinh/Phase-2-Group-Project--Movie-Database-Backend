@@ -18,3 +18,4 @@ use ReviewsController
 use UsersController
 use WatchlistsController
 use WatchlistCardsController
+use CracklesController

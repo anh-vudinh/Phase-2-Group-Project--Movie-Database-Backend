@@ -1,6 +1,11 @@
 class ReviewsController < ApplicationController
     get '/reviews/getReviews/:movie_id' do
-        Movie.find_by(movie_id: params[:movie_id]).reviews.to_json
+        possibleMovie = Movie.find_by(movie_id: params[:movie_id])
+        if(possibleMovie == nil)
+            [].to_json                                  #return empty array
+        else
+            possibleMovie.reviews.to_json               #return reviews
+        end
     end
     
     post '/reviews/addReview' do

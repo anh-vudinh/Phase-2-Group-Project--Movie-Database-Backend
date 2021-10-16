@@ -79,5 +79,11 @@ class CreateTables < ActiveRecord::Migration[6.1]
       t.belongs_to :review
     end
 
+    create_table :crackles do |t|
+      t.integer :c_id
+      t.integer :ReleaseYear
+      t.string  :Title
+    end
+
   end
 end
