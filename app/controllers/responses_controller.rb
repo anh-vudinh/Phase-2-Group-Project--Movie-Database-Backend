@@ -1,8 +1,8 @@
 class ResponsesController < ApplicationController
 
     get '/responses/getResponses/:review_id' do
-        ReviewResponses = ReviewResponse.all.filter{ |rr| rr.review_id == params[:review_id].to_i}
-        send = ReviewResponses.map{|e| e.response}
+        review_responses = ReviewResponse.all.filter{ |rr| rr.review_id == params[:review_id].to_i}
+        send = review_responses.map{|e| e.response}
         send.to_json
     end
 

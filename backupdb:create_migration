@@ -81,8 +81,9 @@ class CreateTables < ActiveRecord::Migration[6.1]
 
     create_table :crackles do |t|
       t.integer :c_id
-      t.integer :ReleaseYear
-      t.string  :Title
+      t.integer :release_year
+      t.string  :title
+      t.string :short_title
     end
 
   end

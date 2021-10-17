@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_16_111840) do
+ActiveRecord::Schema.define(version: 2021_10_16_221612) do
 
   create_table "crackles", force: :cascade do |t|
     t.integer "c_id"
-    t.integer "ReleaseYear"
-    t.string "Title"
+    t.integer "release_year"
+    t.string "title"
+    t.string "short_title"
   end
 
   create_table "movies", force: :cascade do |t|
